@@ -23,10 +23,29 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
+    <!-- BS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
     <!-- STYLESHEET -->
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
+    <!-- LOADING -->
+    <div id="loading">
+      <div class="spinner-border text-warning" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
     <div class="container">
       <!-- NAVBAR -->
       <!-- <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -105,6 +124,7 @@
               <!-- BEGIN BUTTOM THÊM MỚI -->
               <button
                 id="btnThemSP"
+                onclick="resetForm()"
                 class="btn btn-primary"
                 data-toggle="modal"
                 data-target="#myModal"
@@ -118,7 +138,7 @@
               <!-- BEGIN TÌM KIẾM -->
               <div class="input-group mb-3">
                 <input
-                  id="inputTK"
+                  id="txtSearch"
                   type="text"
                   class="form-control"
                   placeholder="Nhập từ khóa"
@@ -126,9 +146,14 @@
                   aria-describedby="basic-addon2"
                 />
                 <div class="input-group-append">
-                  <span class="input-group-text" id="basic-addon2"
-                    ><i class="fa fa-search"></i
-                  ></span>
+                  <button
+                    className="btn btn-primary border-0"
+                    onclick="searchPhone()"
+                  >
+                    <span class="input-group-text" id="basic-addon2"
+                      ><i class="fa fa-search"></i
+                    ></span>
+                  </button>
                 </div>
               </div>
               <!-- END TÌM KIẾM -->
@@ -140,7 +165,7 @@
             <table class="table table-bordered table-dark">
               <thead>
                 <tr>
-                  <th>STT</th>
+                  <th>ID</th>
                   <th>Tên Sản Phẩm</th>
                   <th>Giá</th>
                   <th>Hình Ảnh</th>
@@ -171,17 +196,27 @@
           <div class="modal-content">
             <!-- Modal Header -->
             <div class="modal-header">
-              <h4 class="modal-title text-dark">Thêm sản phẩm</h4>
+              <h4 class="modal-title text-dark">
+                Thêm mới/ Chỉnh sửa sản phẩm
+              </h4>
               <button type="button" class="close" data-dismiss="modal">
                 ×
               </button>
             </div>
             <!-- Modal body -->
             <div class="modal-body">
+              <!-- <div class="form-group">
+                <label class="text-dark">Mã Sản Phẩm</label>
+                <input
+                  id="code"
+                  class="form-control"
+                  placeholder="Nhập vào tên sản phẩm"
+                />
+              </div> -->
               <div class="form-group">
                 <label class="text-dark">Tên Sản Phẩm</label>
                 <input
-                  id="TenSP"
+                  id="name"
                   class="form-control"
                   placeholder="Nhập vào tên sản phẩm"
                 />
@@ -189,30 +224,57 @@
               <div class="form-group">
                 <label class="text-dark">Giá</label>
                 <input
-                  id="GiaSP"
+                  id="price"
                   class="form-control"
                   placeholder="Nhập vào giá"
                 />
               </div>
               <div class="form-group">
-                <label class="text-dark">Hình Ảnh</label>
+                <label class="text-dark">URL hình ảnh</label>
                 <input
-                  id="HinhSP"
+                  id="img"
                   class="form-control"
                   placeholder="Nhập vào hình sản phẩm"
                 />
               </div>
               <div class="form-group">
-                <label class="text-dark">Mô tả</label>
-                <textarea
-                  class="form-control"
-                  name=""
-                  id="MoTa"
-                  cols="30"
-                  rows="10"
-                  placeholder="Nhập vào mô tả"
-                ></textarea>
-                <button class="btn btn-btn-primary mt-2">Thêm mới</button>
+                <label class="text-dark">Chi tiết sản phẩm:</label>
+                <input
+                  id="screen"
+                  class="form-control mt-3"
+                  placeholder="Màn hình"
+                />
+                <input
+                  id="backCamera"
+                  class="form-control mt-3"
+                  placeholder="Camera sau"
+                />
+                <input
+                  id="frontCamera"
+                  class="form-control mt-3"
+                  placeholder="Camera trước"
+                />
+                <input
+                  id="desc"
+                  class="form-control mt-3"
+                  placeholder="Mô tả"
+                />
+                <input id="type" class="form-control mt-3" placeholder="Hãng" />
+                <button
+                  onclick="themPhone()"
+                  id="btnThemPhone"
+                  class="btn btn-primary mt-2"
+                >
+                  Thêm mới
+                </button>
+                <button
+                  disabled
+                  onclick="suaPhone()"
+                  id="btnSuaPhone"
+                  class="btn btn-warning mt-2"
+                >
+                  Cập nhật
+                </button>
               </div>
             </div>
             <!-- Modal footer -->
@@ -248,8 +310,8 @@
     <!-- AXIOS    -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    <script src="./services/SanPhamService.js"></script>
+    <script src="./controllers/adminPhone.controller.js"></script>
     <script src="./models/SanPham.js"></script>
-    <script src="./controllers/main.js"></script>
+    <script src="./services/SanPhamService.js"></script>
   </body>
 </html>
