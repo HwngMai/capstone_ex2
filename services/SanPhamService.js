@@ -1,6 +1,5 @@
 // const BASE_URL = "https://62db6ca0d1d97b9e0c4f3334.mockapi.io";
 const BASE_URL = "https://62db6ca5e56f6d82a772852f.mockapi.io";
-
 //**FUNCTION lấy dssv */
 function getDSPhone() {
   loadingOn();
@@ -44,23 +43,34 @@ function xoaPhone(id) {
 function themPhone() {
   //Lấy info từ form
   newPhone = layThongTinTuForm();
-  //Thêm mới
-  loadingOn();
-  axios({
-    url: `${BASE_URL}/phone`,
-    method: "POST",
-    data: newPhone,
-  })
-    .then(function (res) {
-      loadingOff();
-      console.log(res);
-      getDSPhone();
-      hideModal();
+  //Kiểm tra input
+  var isValid =
+    // Kiểm tra valid
+    checkIsValid(newPhone);
+  console.log("checkIsValid(newPhone): ", checkIsValid(newPhone));
+  // Kiểm tra trùng
+  // validation.kiemTraTrung(newPhone.name, "tbName", "Tên sản phẩm bị trùng");
+  console.log("isValid: ", isValid);
+  // Nếu isValid = true
+  if (isValid == true) {
+    //Thêm mới
+    loadingOn();
+    axios({
+      url: `${BASE_URL}/phone`,
+      method: "POST",
+      data: newPhone,
     })
-    .catch(function (err) {
-      loadingOff();
-      console.log(err);
-    });
+      .then(function (res) {
+        console.log(res);
+        getDSPhone();
+        hideModal(myModal);
+        loadingOff();
+      })
+      .catch(function (err) {
+        loadingOff();
+        console.log(err);
+      });
+  }
 }
 //Tạo biến phoneEdit
 //**FUNCTION sửa phone */
@@ -110,25 +120,35 @@ function suaPhone() {
   newPhone = layThongTinTuForm();
   console.log("newPhone: ", newPhone);
   //Lấy thông tin index phone
-  axios({
-    url: `${BASE_URL}/phone/${indexEdit}`,
-    method: "PUT",
-    data: newPhone,
-  })
-    .then(function (res) {
-      loadingOff();
-      console.log("res: ", res);
-      getDSPhone();
-      hideModal(myModal);
-      // Enable thêm phone và Disable ô sửa
-      togEnable("btnThemPhone");
-      togDisable("btnSuaPhone");
-      resetThongTin();
+  var isValid =
+    // Kiểm tra valid
+    checkIsValid(newPhone);
+  console.log("checkIsValid(newPhone): ", checkIsValid(newPhone));
+  // Kiểm tra trùng
+  // validation.kiemTraTrung(newPhone.name, "tbName", "Tên sản phẩm bị trùng");
+  console.log("isValid: ", isValid);
+  // Nếu isValid = true
+  if (isValid == true) {
+    axios({
+      url: `${BASE_URL}/phone/${indexEdit}`,
+      method: "PUT",
+      data: newPhone,
     })
-    .catch(function (err) {
-      loadingOff();
-      console.log("err: ", err);
-    });
+      .then(function (res) {
+        loadingOff();
+        console.log("res: ", res);
+        getDSPhone();
+        hideModal(myModal);
+        // Enable thêm phone và Disable ô sửa
+        togEnable("btnThemPhone");
+        togDisable("btnSuaPhone");
+        resetThongTin();
+      })
+      .catch(function (err) {
+        loadingOff();
+        console.log("err: ", err);
+      });
+  }
 }
 //**FUNCTION tìm kiếm phone */
 function searchPhone() {

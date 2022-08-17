@@ -220,6 +220,7 @@
                   class="form-control"
                   placeholder="Nhập vào tên sản phẩm"
                 />
+                <span id="tbName" class="text text-danger mt-2"></span>
               </div>
               <div class="form-group">
                 <label class="text-dark">Giá</label>
@@ -228,6 +229,7 @@
                   class="form-control"
                   placeholder="Nhập vào giá"
                 />
+                <span id="tbPrice" class="text text-danger mt-2"></span>
               </div>
               <div class="form-group">
                 <label class="text-dark">URL hình ảnh</label>
@@ -236,6 +238,7 @@
                   class="form-control"
                   placeholder="Nhập vào hình sản phẩm"
                 />
+                <span id="tbImg" class="text text-danger mt-2"></span>
               </div>
               <div class="form-group">
                 <label class="text-dark">Chi tiết sản phẩm:</label>
@@ -244,37 +247,46 @@
                   class="form-control mt-3"
                   placeholder="Màn hình"
                 />
+                <span id="tbScreen" class="text text-danger mt-2"></span>
                 <input
                   id="backCamera"
                   class="form-control mt-3"
                   placeholder="Camera sau"
                 />
+                <span id="tbBackCamera" class="text text-danger mt-2"> </span>
+
                 <input
                   id="frontCamera"
                   class="form-control mt-3"
                   placeholder="Camera trước"
                 />
+                <span id="tbFrontCamera" class="text text-danger mt-2"> </span>
+
                 <input
                   id="desc"
                   class="form-control mt-3"
                   placeholder="Mô tả"
                 />
+                <span id="tbDesc" class="text text-danger mt-2"></span>
                 <input id="type" class="form-control mt-3" placeholder="Hãng" />
-                <button
-                  onclick="themPhone()"
-                  id="btnThemPhone"
-                  class="btn btn-primary mt-2"
-                >
-                  Thêm mới
-                </button>
-                <button
-                  disabled
-                  onclick="suaPhone()"
-                  id="btnSuaPhone"
-                  class="btn btn-warning mt-2"
-                >
-                  Cập nhật
-                </button>
+                <span id="tbType" class="text text-danger mt-2"></span>
+                <div class="form form-group mt-3">
+                  <button
+                    onclick="themPhone()"
+                    id="btnThemPhone"
+                    class="btn btn-primary mt-2"
+                  >
+                    Thêm mới
+                  </button>
+                  <button
+                    disabled
+                    onclick="suaPhone()"
+                    id="btnSuaPhone"
+                    class="btn btn-warning mt-2"
+                  >
+                    Cập nhật
+                  </button>
+                </div>
               </div>
             </div>
             <!-- Modal footer -->
@@ -311,6 +323,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script src="./controllers/adminPhone.controller.js"></script>
+    <script src="./models/Validator.js"></script>
     <script src="./models/SanPham.js"></script>
     <script src="./services/SanPhamService.js"></script>
   </body>

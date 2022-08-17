@@ -5,7 +5,7 @@ renderDSphone = function (dsphone) {
         <td>${phone.id}</td>
         <td>${phone.name}</td>
         <td>${phone.price}</td>
-        <td className='w-25' ><img  style="height: 100px" className='img-fluid' src="${phone.img}"></img></td>
+        <td className='w-25' ><img style="height: 100px" className='img-fluid' src="${phone.img}"></img></td>
         <td>${phone.desc}</td>
         <td> 
         <button onclick="xoaPhone('${phone.id}')" class="btn btn-danger"> Xóa </button>
@@ -103,4 +103,104 @@ function showModal(id) {
 //**FUNC show modal */
 function hideModal(id) {
   $(id).modal("hide");
+}
+//**FUNC kiểm tra valid */
+function checkIsValid(phone) {
+  var isValid =
+    //Kiểm tra rỗng tài khoản, tên, email, mật khẩu, lương, giờ làm, lương
+    validation.kiemTrarong(
+      phone.name,
+      "tbName",
+      "Tên sản phẩm không được để trống"
+    ) &
+    validation.kiemTrarong(
+      phone.price,
+      "tbPrice",
+      "Giá sản phẩm không được để trống"
+    ) &
+    validation.kiemTrarong(
+      phone.img,
+      "tbImg",
+      "URL image không được để trống"
+    ) &
+    validation.kiemTrarong(
+      phone.screen,
+      "tbScreen",
+      "Màn hình không được để trống"
+    ) &
+    validation.kiemTrarong(
+      phone.backCamera,
+      "tbBackCamera",
+      "Back Camera không được để trống"
+    ) &
+    validation.kiemTrarong(
+      phone.frontCamera,
+      "tbFrontCamera",
+      "Front Camera không được để trống"
+    ) &
+    validation.kiemTrarong(phone.desc, "tbDesc", "Mô tả không được để trống") &
+    validation.kiemTrarong(
+      phone.type,
+      "tbType",
+      "Loại sản phẩm không được để trống"
+    ) &
+    // // Kiểm tra độ dài tài khoản,
+    // validation.kiemTraDoDai(
+    //   nv.taiKhoan,
+    //   6,
+    //   4,
+    //   "tbTKNV",
+    //   "Tài khoản nhân viên phải trên 4 kí tự và dưới 6 kí tự"
+    // ) &
+    // validation.kiemTraDoDai(
+    //   nv.matKhau,
+    //   10,
+    //   6,
+    //   "tbMatKhau",
+    //   "Mật khẩu nhân viên phải trên 6 kí tự và dưới 10 kí tự"
+    // ) &
+    // //Kiểm tra chức vụ
+    // validation.kiemTraChucVu(
+    //   nv.chucVu,
+    //   "tbChucVu",
+    //   "Chọn chức vụ cho nhân viên"
+    // ) &
+    // // Kiểm tra email
+    // validation.kiemTraEmail(nv.email, "tbEmail", "Email không hợp lệ") &
+    // //Kiểm tra kí tự tên
+    // validation.kiemTraTen(nv.ten, "tbTen", "Tên phải là kí tự chữ không dấu") &
+    // // Kiểm tra pass
+    // validation.kiemTraPass(
+    //   nv.matKhau,
+    //   "tbMatKhau",
+    //   "Pass phải có 1 kí tự in hoa, một kí tự không in hoa, một chữ số và 1 kí tự đặc biệt "
+    // ) &
+    //Kiểm tra lương
+    validation.kiemTraMin(
+      phone.price,
+      0,
+      "tbPrice",
+      "Vui lòng vào số có giá trị lớn hơn 0 "
+    ) &
+    validation.kiemTraMin(
+      phone.screen,
+      0,
+      "tbScreen",
+      "Vui lòng vào số có giá trị lớn hơn 0 "
+    ) &
+    validation.kiemTraMin(
+      phone.backCamera,
+      0,
+      "tbBackCamera",
+      "Vui lòng vào số có giá trị lớn hơn 0 "
+    ) &
+    validation.kiemTraMin(
+      phone.frontCamera,
+      0,
+      "tbFrontCamera",
+      "Vui lòng vào số có giá trị lớn hơn 0 "
+    );
+  // validation.kiemTraTrung(phone.name, "tbName", "Tên sản phẩm bị trùng");
+
+  return isValid;
 }
