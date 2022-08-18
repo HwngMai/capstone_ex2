@@ -146,13 +146,8 @@
                   aria-describedby="basic-addon2"
                 />
                 <div class="input-group-append">
-                  <button
-                    className="btn btn-primary border-0"
-                    onclick="searchPhone()"
-                  >
-                    <span class="input-group-text" id="basic-addon2"
-                      ><i class="fa fa-search"></i
-                    ></span>
+                  <button class="btn btn-primary" onclick="searchPhone()">
+                    Search Name
                   </button>
                 </div>
               </div>
@@ -321,10 +316,9 @@
     ></script>
     <!-- AXIOS    -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
-    <script src="./controllers/adminPhone.controller.js"></script>
-    <script src="./models/Validator.js"></script>
     <script src="./models/SanPham.js"></script>
+    <script src="./models/Validator.js"></script>
+    <script src="./controllers/adminPhone.controller.js"></script>
     <script src="./services/SanPhamService.js"></script>
   </body>
 </html>

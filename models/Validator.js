@@ -86,8 +86,8 @@ var validation = {
     var isBelow0 = value < min;
     // Kiểm tra có khác quy tắc theo biến regex
     var isRe = !re.test(value);
-    console.log("isRe: ", isRe);
-    console.log("isBelow0: ", isBelow0);
+    // console.log("isRe: ", isRe);
+    // console.log("isBelow0: ", isBelow0);
     // nếu input có giá trị và nằm ngoài 1-20tr hoặc ko theo quy tắc biến regex
     if (value.length != 0 && (isBelow0 || isRe)) {
       document.getElementById(idError).innerHTML = mess;
@@ -98,7 +98,7 @@ var validation = {
   },
   //Kiểm tra trùng tên sản phẩm
   kiemTraTrung: function (value, idError, mess) {
-    let isDupli = true;
+    isDupli = false;
     axios({
       url: `${BASE_URL}/phone`,
       method: "GET",
@@ -114,17 +114,19 @@ var validation = {
             // Báo lỗi
             document.getElementById(idError).innerHTML = mess;
             // Trả về false
-            this.isDupli = false;
+            console.log(false);
+            return false;
+
           } else {
-            this.isDupli = true;
+            console.log(true);
+            return true;
           }
         }
       })
       .catch(function (err) {
         loadingOff();
         console.log(err);
+        return false;
       });
-    console.log("isDup: ", isDup);
-    return isDupli;
   },
 };

@@ -46,10 +46,14 @@ function themPhone() {
   //Kiểm tra input
   var isValid =
     // Kiểm tra valid
-    checkIsValid(newPhone);
+    checkIsValid(newPhone) &
+    kiemTraTrung(newPhone.name, "tbName", "Tên sản phẩm bị trùng");
+  console.log(
+    'kiemTraTrung(newPhone.name, "tbName", "Tên sản phẩm bị trùng"): ',
+    kiemTraTrung(newPhone.name, "tbName", "Tên sản phẩm bị trùng")
+  );
   console.log("checkIsValid(newPhone): ", checkIsValid(newPhone));
   // Kiểm tra trùng
-  // validation.kiemTraTrung(newPhone.name, "tbName", "Tên sản phẩm bị trùng");
   console.log("isValid: ", isValid);
   // Nếu isValid = true
   if (isValid == true) {
@@ -119,10 +123,8 @@ function suaPhone() {
   loadingOn();
   newPhone = layThongTinTuForm();
   console.log("newPhone: ", newPhone);
-  //Lấy thông tin index phone
-  var isValid =
-    // Kiểm tra valid
-    checkIsValid(newPhone);
+  // Kiểm tra valid
+  var isValid = checkIsValid(newPhone);
   console.log("checkIsValid(newPhone): ", checkIsValid(newPhone));
   // Kiểm tra trùng
   // validation.kiemTraTrung(newPhone.name, "tbName", "Tên sản phẩm bị trùng");
@@ -190,7 +192,7 @@ function searchPhone() {
 // 5. Cập nhật phone[codeEdit]
 //**FUNC rs form */
 function resetForm() {
-  console.log("vl");
+  console.log("model show");
   resetThongTin();
   togDisable("btnSuaPhone");
   togEnable("btnThemPhone");

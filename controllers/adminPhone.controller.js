@@ -144,38 +144,6 @@ function checkIsValid(phone) {
       "tbType",
       "Loại sản phẩm không được để trống"
     ) &
-    // // Kiểm tra độ dài tài khoản,
-    // validation.kiemTraDoDai(
-    //   nv.taiKhoan,
-    //   6,
-    //   4,
-    //   "tbTKNV",
-    //   "Tài khoản nhân viên phải trên 4 kí tự và dưới 6 kí tự"
-    // ) &
-    // validation.kiemTraDoDai(
-    //   nv.matKhau,
-    //   10,
-    //   6,
-    //   "tbMatKhau",
-    //   "Mật khẩu nhân viên phải trên 6 kí tự và dưới 10 kí tự"
-    // ) &
-    // //Kiểm tra chức vụ
-    // validation.kiemTraChucVu(
-    //   nv.chucVu,
-    //   "tbChucVu",
-    //   "Chọn chức vụ cho nhân viên"
-    // ) &
-    // // Kiểm tra email
-    // validation.kiemTraEmail(nv.email, "tbEmail", "Email không hợp lệ") &
-    // //Kiểm tra kí tự tên
-    // validation.kiemTraTen(nv.ten, "tbTen", "Tên phải là kí tự chữ không dấu") &
-    // // Kiểm tra pass
-    // validation.kiemTraPass(
-    //   nv.matKhau,
-    //   "tbMatKhau",
-    //   "Pass phải có 1 kí tự in hoa, một kí tự không in hoa, một chữ số và 1 kí tự đặc biệt "
-    // ) &
-    //Kiểm tra lương
     validation.kiemTraMin(
       phone.price,
       0,
@@ -203,4 +171,35 @@ function checkIsValid(phone) {
   // validation.kiemTraTrung(phone.name, "tbName", "Tên sản phẩm bị trùng");
 
   return isValid;
+}
+function kiemTraTrung(value, idError, mess) {
+  axios({
+    url: `${BASE_URL}/phone`,
+    method: "GET",
+  })
+    .then(function (res) {
+      loadingOff();
+      console.log(res);
+      let dsPhone = res.data;
+      for (i = 0; i < dsPhone.length; i++) {
+        // gán biến chứa mảng có giá trị cần so sánh
+        let phone = dsPhone[i];
+        // nếu giá trị cần tìm khác 0 và bằng giá trị so sánh
+        if (value.length != 0 && value == phone.name) {
+          // Báo lỗi
+          document.getElementById(idError).innerHTML = mess;
+          // Trả về false
+          console.log(false);
+          return false;
+        } else {
+          console.log(true);
+          return true;
+        }
+      }
+    })
+    .catch(function (err) {
+      loadingOff();
+      console.log(err);
+      return false;
+    });
 }
