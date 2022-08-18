@@ -46,8 +46,8 @@ function themPhone() {
   //Kiểm tra input
   var isValid =
     // Kiểm tra valid
-    checkIsValid(newPhone) &
-    kiemTraTrung(newPhone.name, "tbName", "Tên sản phẩm bị trùng");
+    checkIsValid(newPhone);
+  // kiemTraTrung(newPhone.name, "tbName", "Tên sản phẩm bị trùng");
   console.log(
     'kiemTraTrung(newPhone.name, "tbName", "Tên sản phẩm bị trùng"): ',
     kiemTraTrung(newPhone.name, "tbName", "Tên sản phẩm bị trùng")
@@ -79,12 +79,8 @@ function themPhone() {
 //Tạo biến phoneEdit
 //**FUNCTION sửa phone */
 function capNhatPhone(id) {
-  //Disable thêm phone và ô input mã phone
-  //   togDisable("txtMaPhone");
-  // togDisable("btnThemPhone");
-  //Enable ô sửa
-  // togEnable("btnSuaPhone");
-  //Lấy thông tin Phone
+  //Reset thông báo - getPhone id - showModal
+  hideTbForm();
   getPhone(id);
   showModal(myModal);
 }
@@ -176,8 +172,9 @@ function searchPhone() {
         togEnable("btnSuaPhone");
         resetInput("txtSearch");
       } else {
-        alert(" Không tìm thấy");
+        alert(` Không tìm thấy ${nameSearch}`);
         resetThongTin();
+        resetInput("txtSearch");
       }
     })
     .catch(function (err) {
@@ -196,4 +193,5 @@ function resetForm() {
   resetThongTin();
   togDisable("btnSuaPhone");
   togEnable("btnThemPhone");
+  hideTbForm();
 }

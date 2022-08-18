@@ -148,25 +148,25 @@ function checkIsValid(phone) {
       phone.price,
       0,
       "tbPrice",
-      "Vui lòng vào số có giá trị lớn hơn 0 "
+      "Vui lòng nhập vào giá trị dương "
     ) &
     validation.kiemTraMin(
       phone.screen,
       0,
       "tbScreen",
-      "Vui lòng vào số có giá trị lớn hơn 0 "
+      "Vui lòng nhập vào giá trị dương "
     ) &
     validation.kiemTraMin(
       phone.backCamera,
       0,
       "tbBackCamera",
-      "Vui lòng vào số có giá trị lớn hơn 0 "
+      "Vui lòng nhập vào giá trị dương "
     ) &
     validation.kiemTraMin(
       phone.frontCamera,
       0,
       "tbFrontCamera",
-      "Vui lòng vào số có giá trị lớn hơn 0 "
+      "Vui lòng nhập vào giá trị dương "
     );
   // validation.kiemTraTrung(phone.name, "tbName", "Tên sản phẩm bị trùng");
 
@@ -202,4 +202,17 @@ function kiemTraTrung(value, idError, mess) {
       console.log(err);
       return false;
     });
+}
+function hideTb(idSpan) {
+  document.getElementById(idSpan).innerHTML = "";
+}
+function hideTbForm() {
+  hideTb("tbName");
+  hideTb("tbPrice");
+  hideTb("tbImg");
+  hideTb("tbScreen");
+  hideTb("tbBackCamera");
+  hideTb("tbFrontCamera");
+  hideTb("tbDesc");
+  hideTb("tbType");
 }
